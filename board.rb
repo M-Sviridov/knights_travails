@@ -2,11 +2,11 @@
 
 # class representing a chess board
 class Board
-  attr_accessor :knight, :board
+  attr_accessor :board
 
   def initialize
     @board = Array.new(8) { Array.new(8) }
-    @knight = "\u2658"
   end
-end
 
+  def knight_moves(start, destination); end
+end
