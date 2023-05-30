@@ -15,13 +15,17 @@ class Knight
     moves = [[2, 1], [2, -1], [-2, 1], [-2, -1], [1, 2], [1, -2], [-1, 2], [-1, -2]]
 
     moves.each do |move|
-      new_x_coord = position[0] + move[0]
-      new_y_coord = position[1] + move[1]
-      result << [new_x_coord, new_y_coord] if new_x_coord.between?(0, 7) && new_y_coord.between?(0, 7)
+      new_coordinates = [position[0] + move[0], position[1] + move[1]]
+      result << new_coordinates if valid_move?(new_coordinates)
     end
     result
   end
+
+  def valid_move?(coordinates)
+    x, y = coordinates
+    x.between?(0, 7) && y.between?(0, 7)
+  end
 end
 
-knight = Knight.new([0, 3])
+knight = Knight.new([0, 0])
 p knight.moves
