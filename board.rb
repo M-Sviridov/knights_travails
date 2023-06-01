@@ -15,9 +15,7 @@ class Board
     queue = knight.create_children
 
     until queue.empty?
-      # queue.each { |child| p child.position }
       current_child = queue.shift
-
       return current_child.shortest_path if current_child.position == destination
 
       queue += current_child.create_children
