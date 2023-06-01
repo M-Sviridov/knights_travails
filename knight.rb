@@ -50,19 +50,3 @@ class Knight
     retrace_parent.reverse.each { |position| p position }
   end
 end
-
-def knight_moves(start, destination)
-  knight = Knight.new(start)
-  queue = knight.create_children
-
-  until queue.empty?
-    queue.each { |child| p child.position }
-    current_child = queue.shift
-
-    return current_child.shortest_path if current_child.position == destination
-
-    queue << current_child.create_children[0]
-  end
-end
-
-knight_moves([3, 3], [4, 3])
