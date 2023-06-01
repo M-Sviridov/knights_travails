@@ -37,5 +37,30 @@ class Knight
     end
     children
   end
+
+  def retrace_parent(knight = self, result = [])
+    return result << knight.position if knight.parent.nil?
+
+    result << knight.position
+    retrace_parent(knight.parent, result)
+  end
+
+  def shortest_path
+    puts "You made it in #{retrace_parent.length} moves! Here's your path: "
+    retrace_parent.reverse.each { |position| p position }
+  end
 end
 
+# knight = Knight.new([3, 3])
+# knight1 = Knight.new([5, 2], knight)
+# knight2 = Knight.new([7, 3], knight1)
+
+# knight2.shortest_path
+
+# p knight.knight_moves([3, 3], [5, 2])
+
+# p knight_moves([3, 3], [5, 2])
+# p knight.parent
+# p knight.moves
+# knight.create_children.each { |child| p child.position }
+# knight.create_children.each { |child| p "child's parent position: #{child.retrace_parent.position}" }
