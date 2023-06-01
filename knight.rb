@@ -27,5 +27,15 @@ class Knight
     x, y = coordinates
     x.between?(0, 7) && y.between?(0, 7)
   end
+
+  def create_children
+    children = []
+    current_knight = self
+    possible_moves.each do |move|
+      new_knight = Knight.new(move, current_knight)
+      children << new_knight
+    end
+    children
+  end
 end
 
