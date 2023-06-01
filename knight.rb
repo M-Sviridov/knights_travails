@@ -51,16 +51,18 @@ class Knight
   end
 end
 
-# knight = Knight.new([3, 3])
-# knight1 = Knight.new([5, 2], knight)
-# knight2 = Knight.new([7, 3], knight1)
+def knight_moves(start, destination)
+  knight = Knight.new(start)
+  queue = knight.create_children
 
-# knight2.shortest_path
+  until queue.empty?
+    queue.each { |child| p child.position }
+    current_child = queue.shift
 
-# p knight.knight_moves([3, 3], [5, 2])
+    return current_child.shortest_path if current_child.position == destination
 
-# p knight_moves([3, 3], [5, 2])
-# p knight.parent
-# p knight.moves
-# knight.create_children.each { |child| p child.position }
-# knight.create_children.each { |child| p "child's parent position: #{child.retrace_parent.position}" }
+    queue << current_child.create_children[0]
+  end
+end
+
+knight_moves([3, 3], [4, 3])
