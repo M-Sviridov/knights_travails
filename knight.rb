@@ -8,17 +8,32 @@ class Knight
 
   def initialize(coordinates)
     @position = coordinates
-    @moves = possible_moves
+    @moves = possible_moves(coordinates, [2,1])
   end
 
-  def possible_moves(result = [])
+  def possible_moves(start, destination)
     moves = [[2, 1], [2, -1], [-2, 1], [-2, -1], [1, 2], [1, -2], [-1, 2], [-1, -2]]
+    queue = [start]
+    visited = [start]
+    current_position = nil
 
-    moves.each do |move|
-      new_coordinates = [position[0] + move[0], position[1] + move[1]]
-      result << new_coordinates if valid_move?(new_coordinates)
+    until queue.empty? || current_position == destination
+      current_position = queue.shift
+      moves.each do |move|
+        new_coordinates = [current_position[0] + move[0], current_position[1] + move[1]]
+        if new_coordinates == destination
+          visited << new_coordinates
+          return visited
+        elsif valid_move?(new_coordinates) && !visited.include?(new_coordinates)
+          queue << new_coordinates
+          visited << new_coordinates
+        end
+      end
     end
-    result
+  end
+
+  def show_shortest_path(start, destination)
+    possible_moves(start, destination).each { |move| p move }
   end
 
   def valid_move?(coordinates)
@@ -28,4 +43,5 @@ class Knight
 end
 
 knight = Knight.new([0, 0])
-p knight.moves
+knight.moves
+knight.show_shortest_path(knight.position, [3, 3])
